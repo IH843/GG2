@@ -3,41 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube API Example</title>
-</head>
-<body>
-    <div id="youtube-video"></div>
-
-    <script src="https://apis.google.com/js/api.js"></script>
+    <title>הצגת שעה נוכחית</title>
     <script>
-        // הכנס את המפתח שלך ב-API במקום 'YOUR_API_KEY'
-        const API_KEY = 'YOUR_API_KEY';
-        const VIDEO_ID = 'dQw4w9WgXcQ'; // שנה עם ID של סרטון שברצונך להציג
-
-        function loadVideo() {
-            gapi.client.setApiKey(API_KEY);
-            gapi.client.load('youtube', 'v3', function() {
-                const request = gapi.client.youtube.videos.list({
-                    part: 'snippet,contentDetails,statistics',
-                    id: VIDEO_ID
-                });
-
-                request.execute(function(response) {
-                    const video = response.items[0];
-                    const videoTitle = video.snippet.title;
-                    const videoDescription = video.snippet.description;
-
-                    const videoHtml = `
-                        <h1>${videoTitle}</h1>
-                        <p>${videoDescription}</p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/${VIDEO_ID}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    `;
-                    document.getElementById('youtube-video').innerHTML = videoHtml;
-                });
-            });
+        function showTime() {
+            // יצירת אובייקט של תאריך ושעה
+            var now = new Date();
+            
+            // קבלת השעה, דקות ושניות
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            
+            // להוסיף 0 אם השעה, דקות או שניות פחות מ-10
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            // הצגת השעה בפורמט: HH:MM:SS
+            var timeString = hours + ':' + minutes + ':' + seconds;
+            
+            // הדפסת השעה בתוך האלמנט עם ID 'clock'
+            document.getElementById('clock').innerText = timeString;
         }
 
-        gapi.load('client', loadVideo);
+        // קריאה לפונקציה להציג את השעה כל שנייה
+        setInterval(showTime, 1000);
     </script>
+</head>
+<body>
+    <h1>השעה הנוכחית:</h1>
+    <div id="clock" style="font-size: 30px; font-weight: bold;"></div>
 </body>
 </html>
