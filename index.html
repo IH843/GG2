@@ -3,9 +3,8 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>טעינת תוכן מאתר אחר</title>
     <script>
-fetch("https://script.google.com/macros/s/AKfycbyA0uVUsHN0YKgU0tRsXgDwtaCxjb34SyHr2jXUIq-NmSoLiNFWQ626FhHOTsS_B9opGA/exec")
+fetch("https://script.google.com/macros/s/AKfycbyA0uVUsHN0YKgU0tRsXgDwtaCxjb34SyHr2jXUIq-NmSoLiNFWQ626FhHOTsS_B9opGA/exec?name=John")
   .then(response => response.json())
   .then(data => {
     console.log(data.message);  // זה יהיה "שלום John"
@@ -14,7 +13,5 @@ fetch("https://script.google.com/macros/s/AKfycbyA0uVUsHN0YKgU0tRsXgDwtaCxjb34Sy
     </script>
 </head>
 <body>
-    <h1>האתר שלך</h1>
-    <div id="content">המתן לטעינת התוכן...</div>
 </body>
 </html>
