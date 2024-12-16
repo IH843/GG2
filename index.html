@@ -15,3 +15,41 @@ fetch("https://script.google.com/macros/s/AKfycbyA0uVUsHN0YKgU0tRsXgDwtaCxjb34Sy
 <body>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>העלאת קובץ tts</title>
+    <style>
+        input, textarea {
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>העלאת קובץ tts</h1>
+    <form action="https://www.call2all.co.il/ym/api/UploadTextFile" method="get" onsubmit="return processForm()">
+        <label for="token">מספר מערכת וסיסמא:</label>
+        <input type="text" id="token" name="token" required placeholder="לדוגמא 073137770:1234" pattern="^[0-9]{9,10}:[0-9]{4,10}$"><br><br>
+        <label for="input1">הקלד שלוחה:</label>
+        <input type="text" id="input1" name="input1" required placeholder="חייב להסתיים בסלאש" pattern="^.*\/$"><br><br>
+        <label for="input2">שם הקובץ:</label>
+        <input type="text" id="input2" name="input2" required placeholder="בלי הסיומת"><br><br>
+        <label for="contents">תוכן:</label>
+        <textarea id="contents" name="contents" required placeholder="הקלד כאן את הטקסט שתרצה להעלות"></textarea><br><br>
+        <input type="hidden" id="what" name="what">
+        <input type="submit" value="שלח">
+    </form>
+    <script>
+        function processForm() {
+            var input1 = document.getElementById('input1').value;
+            var input2 = document.getElementById('input2').value; 
+            document.getElementById('what').value = "ivr2:" + input1 + ' ' + input2 + '.tts';
+            return true;
+        }
+    </script>
+</body>
+</html>
+ 
