@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title>טעינת תוכן מאתר אחר</title>
     <script>
-        async function loadContent() {
-            const response = await fetch('https://www.zap.co.il/cat.aspx?cat=comp');
-            const data = await response.text();
-            document.getElementById('content').innerHTML = data;
-        }
-        window.onload = loadContent;
+fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=John")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.message);  // זה יהיה "שלום John"
+  })
+  .catch(error => console.error('Error:', error));
     </script>
 </head>
 <body>
