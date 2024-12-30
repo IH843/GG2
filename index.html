@@ -1,18 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <script>
-fetch("https://script.google.com/macros/s/AKfycbyA0uVUsHN0YKgU0tRsXgDwtaCxjb34SyHr2jXUIq-NmSoLiNFWQ626FhHOTsS_B9opGA/exec?name=John")
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message);  // זה יהיה "שלום John"
-  })
-  .catch(error => console.error('Error:', error));
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בדיקת שם</title>
 </head>
 <body>
+    <h1>הכנס את השם שלך</h1>
+
+    <input type="text" id="nameInput" placeholder="הכנס את שמך">
+    <button onclick="checkName()">שלח</button>
+
+    <p id="response"></p>
+
+    <script>
+        // פונקציה ששולחת את השם לפונקציה בשרת הדינמי
+        function checkName() {
+            const name = document.getElementById('nameInput').value;  // קבלת השם מהקלט
+
+            // אם השם ריק, אל תשלח בקשה
+            if (!name) {
+                alert('אנא הכנס שם');
+                return;
+            }
+
+            // שליחה לפונקציה בשרת הדינמי
+            fetch('https://script.google.com/macros/s/AKfycbw6bwLD5jCGjNG9LufaAWOo-bTwgGvh8HZfkDLdXrHWyPO8-DLFFMgsCF5nkJoheDLoGw/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name })  // שולחים את השם כ-body ב-POST
+            })
+            .then(response => response.json())
+            .then(data => {
+                // הצגת התשובה על המסך
+                document.getElementById('response').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('שגיאה:', error);
+                document.getElementById('response').innerText = 'שגיאה בשליחת הבקשה';
+            });
+        }
+    </script>
 </body>
 </html>
-
