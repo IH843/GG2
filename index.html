@@ -1,47 +1,40 @@
-<!DOCTYPE html>
-<html lang="he">
+
+
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בדיקת שם</title>
+ <meta charset="utf-8">
 </head>
 <body>
-    <h1>הכנס את השם שלך</h1>
+ <script>
+   const url = 'https://chatgpt-42.p.rapidapi.com/chatgpt';
+const options = {
+	method: 'POST',
+	headers: {
+		'x-rapidapi-key': '531d2440cfmsh696dc5bba158433p1aadb7jsnf2dde3455f56',
+		'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+		'Content-Type': 'application/json'
+	},
+	body: {
+		messages: [
+			{
+				role: 'user',
+				content: 'hello'
+			}
+		],
+		web_access: false
+	}
+};
 
-    <input type="text" id="nameInput" placeholder="הכנס את שמך">
-    <button onclick="checkName()">שלח</button>
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}
 
-    <p id="response"></p>
 
-    <script>
-        // פונקציה ששולחת את השם לפונקציה בשרת הדינמי
-        function checkName() {
-            const name = document.getElementById('nameInput').value;  // קבלת השם מהקלט
-
-            // אם השם ריק, אל תשלח בקשה
-            if (!name) {
-                alert('אנא הכנס שם');
-                return;
-            }
-
-            // שליחה לפונקציה בשרת הדינמי
-            fetch('https://script.google.com/macros/s/AKfycbw6bwLD5jCGjNG9LufaAWOo-bTwgGvh8HZfkDLdXrHWyPO8-DLFFMgsCF5nkJoheDLoGw/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: name })  // שולחים את השם כ-body ב-POST
-            })
-            .then(response => response.json())
-            .then(data => {
-                // הצגת התשובה על המסך
-                document.getElementById('response').innerText = data.message;
-            })
-            .catch(error => {
-                console.error('שגיאה:', error);
-                document.getElementById('response').innerText = 'שגיאה בשליחת הבקשה';
-            });
-        }
-    </script>
+</script>
 </body>
 </html>
